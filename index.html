@@ -72,7 +72,7 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
-        #clearButton {
+        #clearButton, #screenshotSafeButton {
             padding: 5px 10px;
             background-color: #555;
             border: 2px solid #666;
@@ -82,8 +82,13 @@
             font-size: 0.9em;
         }
         
-        #clearButton:hover {
+        #clearButton:hover, #screenshotSafeButton:hover {
             background-color: #666;
+        }
+        
+        #screenshotSafeButton.active {
+            background-color: #477;
+            border-color: #699;
         }
 
         .message-container {
@@ -152,6 +157,7 @@
         </div>
         <div class="control-group">
             <button id="clearButton" title="Clear Canvas">Clear</button>
+            <button id="screenshotSafeButton" title="Toggle Screenshot Safe Mode">Screenshot Safe</button>
         </div>
     </div>
 
@@ -164,6 +170,7 @@
     <script src="script.js"></script>
     <script src="utilities.js"></script>
     <script src="canvas-pan-util.js"></script>
+    <script src="noise-shader.js"></script>
     <script>
         window.addEventListener('load', function() {
             console.log('%cLoad event fired. Initializing utilities...', 'color: blue; font-weight: bold;'); // Make it stand out
@@ -187,6 +194,11 @@
             // Initialize canvas pan utility
             if (typeof initCanvasPanUtil === 'function') {
                 initCanvasPanUtil();
+            } else { /* error */ }
+    
+            // Initialize noise shader
+            if (typeof initNoiseShader === 'function') {
+                initNoiseShader();
             } else { /* error */ }
     
             console.log('--- Utility initializations attempted ---');

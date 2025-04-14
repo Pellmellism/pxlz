@@ -537,7 +537,7 @@ function setupCanvas() { /* ... implementation unchanged ... */
     redrawCanvas();
 }
 
-function redrawCanvas() { /* ... implementation unchanged ... */
+function redrawCanvas() {
     // Use secondary color for background fill by default
     const bgColorIndex = 1;
     const fgColorIndex = 0;
@@ -559,6 +559,13 @@ function redrawCanvas() { /* ... implementation unchanged ... */
              }
         }
     }
+    
+    // Apply noise shader if it's active
+    if (window.noiseShader && window.noiseShader.isActive && window.noiseShader.isActive()) {
+        // The actual noise rendering is handled by the animation loop in noise-shader.js
+        // This just ensures we don't interfere with it
+    }
+    
     // console.log(`Canvas redrawn. Drew ${drawCount} foreground pixels.`);
 }
 
