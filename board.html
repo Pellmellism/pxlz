@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Editor 256x256 v2</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh;
+            background-color: #333;
+            font-family: sans-serif;
+            color: #eee;
+            flex-direction: column; /* Stack controls, canvas, info */
+        }
+        #controls {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: #444;
+            border-radius: 5px;
+            gap: 10px; /* Spacing between control groups */
+        }
+        .control-group {
+             display: flex;
+             align-items: center;
+             gap: 5px; /* Spacing within a group */
+        }
+         .control-group span {
+             font-size: 0.9em;
+             margin-right: 5px;
+         }
+
+        .brush-selector, .color-selector {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #666;
+            cursor: pointer;
+            background-color: #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            border-radius: 3px;
+             transition: border-color 0.2s ease; /* Smooth transition for active state */
+        }
+         /* Represent brush size visually */
+         .brush-selector[data-brush="small"]::after { content: 'S'; }
+         .brush-selector[data-brush="medium"]::after { content: 'M'; }
+         .brush-selector[data-brush="large"]::after { content: 'L'; }
+
+
+        .color-selector {
+            width: 25px; /* Slightly smaller color swatches */
+            height: 25px;
+        }
+
+        .brush-selector.active, .color-selector.active {
+            border-color: #eee;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        canvas {
+            display: block;
+            background-color: #eee;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+             cursor: crosshair; /* Indicate drawing area */
+        }
+        #info {
+            margin-top: 10px;
+            font-size: 0.8em;
+            min-height: 1.2em;
+        }
+    </style>
+    <!-- Include pako library -->
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+</head>
+<body>
+    <div id="controls">
+        <div class="control-group">
+            <span>Brush:</span>
+            <button class="brush-selector" data-brush="small" title="Small Brush (2x2)"></button>
+            <button class="brush-selector" data-brush="medium" title="Medium Brush (~5x5)"></button>
+            <button class="brush-selector" data-brush="large" title="Large Brush (~9x9)"></button>
+        </div>
+         <div class="control-group">
+            <span>Color:</span>
+            <div class="color-selector" data-color-index="0" title="Primary Color (Black)"></div>
+            <div class="color-selector" data-color-index="1" title="Secondary Color (White)"></div>
+        </div>
+    </div>
+
+    <canvas id="pixelCanvas"></canvas>
+    <div id="info">URL Length: 0 chars</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
